@@ -1,0 +1,95 @@
+.group_role {
+	position: fixed;
+	max-width: 320px;
+	width: 100%;
+	height: 480px;
+	overflow: hidden;
+	top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#first_cut img {
+	position: absolute;
+}
+
+.left_kid {
+  bottom: 10%;
+  left: -65%;
+  width: 120%;
+}
+
+.right_kid {
+  bottom: 10%;
+  right: -65%;
+  width: 120%;
+}
+
+.first_captain {
+  top: 100%;
+  width: 100%;
+}
+
+#second_cut img {
+  position: absolute;  
+}
+
+.second_captain {
+  top: -10%;
+  left: -80%;
+  width: 100%;
+}
+
+.second_cut_banner {
+  width: 150%;
+  left: -100%;
+  bottom: -25%;
+  transform: translate(-50%, 0);
+}
+
+#third_cut {
+	opacity: 0;
+	position: fixed;
+  bottom: 0%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  overflow: hidden;
+}
+
+#third_cut img {
+  position: absolute;
+	width: 100%;
+}
+
+.group_kids {
+  bottom: 0;
+}
+
+#video {
+  position: absolute;
+  width: 60%;
+  left: 2%;
+  top: 18.5%;
+}
+
+.sound_on {
+  position: absolute;
+  left: 1.8%;
+  bottom: 15%;
+  background: transparent;
+	border: none;
+}
+
+.sound_off {
+  display: none;
+  position: absolute;
+  left: 1.8%;
+  bottom: 15%;
+  background: transparent;
+	border: none;
+}
+
+i {
+	font-size: 1.3rem;
+	color: white;
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/plugins/PixiPlugin.min.js"></script>
+  <script src="https://kit.fontawesome.com/e75b52cdc5.js" crossorigin="anonymous"></script>
+  <title>內褲隊長</title>
+</head>
+<body>
+  <div class="wrapper">
+    <div id="first_cut">
+      <div class="group_role">
+        <img class="left_kid" src="./images/left_kid.png" alt="">
+        <img class="right_kid" src="./images/right_kid.png" alt="">
+        <img class="first_captain" src="./images/first_captain.png" alt="">
+      </div>
+    </div>
+    <div id="second_cut">
+      <div class="group_role">
+        <img class="second_captain" src="./images/second_captain.png" alt="">
+        <img class="second_cut_banner" src="./images/second_cut_banner.png" alt="">
+      </div>
+    </div>
+    <div id="third_cut">
+      <a target="_blank" href="http://www.dreamworks-asia.com/?watch=on&country=taiwan">
+        <img src="./images/third_cut_bg.png" alt="">
+        <img class="group_kids" src="./images/group_kids.png" alt="">
+        <video id="video" class="demo_video" muted playsinline loop>
+          <source src="./images/video.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </a>
+      <button class="sound_on" onclick="enableMute()" type="button"><i class="fas fa-volume-mute"></i></button>
+      <button class="sound_off" onclick="enableMute()" type="button"><i class="fas fa-volume-up"></i></button>
+    </div>
+  </div>
+</body>
+<script>
+  const bottomBanner = document.getElementById("third_cut");
+  bottomBanner.style.width = `${window.innerWidth}px`;
+  bottomBanner.style.height = `${window.innerWidth / 2}px`;
+
+  const vid = document.getElementById("video");
+
+  parent.postMessage({
+    type: 'ad-action',
+    action: 'hide_close_button',
+  }, "*")
+
+  const animationDelay = function(sec){
+    return new Promise(function(resolve,reject){
+      setTimeout(resolve, sec); 
+    });
+  };
+
+  animationDelay()
+  .then(function(){
+    parent.postMessage({
+      type: 'resize',
+      fullWidth: true,
+      height: document.documentElement.clientWidth / 640 * 960,
+    }, "*")
+    return animationDelay(3500);
+  }).then(function(){
+    TweenMax.to(".left_kid", 0.5, { left: -20 });
+    TweenMax.to(".right_kid", 0.5, { right: -40 });
+    return animationDelay(500);
+  }).then(function(){
+    TweenMax.to(".first_captain", 1.5, { top: -350 });
+    TweenMax.to(".left_kid", 0.5, { opacity: 0 });
+    TweenMax.to(".right_kid", 0.5, { opacity: 0 });
+    return animationDelay(1500);    
+  }).then(function(){
+    document.getElementById("first_cut").style.display = 'none';
+    TweenMax.to(".second_captain", 1.5, { left: 250 });
+    return animationDelay(300);
+  }).then(function(){
+    TweenMax.to(".second_cut_banner", 1.5, { left: '50%' });
+    return animationDelay(1500);
+  }).then(function(){
+    TweenMax.to(".second_cut_banner", 0.5, { opacity: 0 })
+    return animationDelay(300);
+  }).then(function(){
+    document.getElementById("first_cut").style.display = 'none';
+    document.getElementById("second_cut").style.display = 'none';
+    parent.postMessage({
+      type: 'resize',
+      fullWidth: true,
+      height: document.documentElement.clientWidth * 256 / 512,
+    }, "*")
+    parent.postMessage({
+      type: 'ad-action',
+      action: 'show_close_button',
+    }, "*")
+    TweenMax.to("#third_cut", 0.5, { opacity: 1 });
+    playVid();
+  });
+
+  function playVid() { 
+    vid.play(); 
+  }
+
+  function enableMute() {
+    vid.muted = !vid.muted; // Switch true and false
+    if(vid.muted) {
+      document.getElementsByClassName('sound_off')[0].style.display = 'none';
+      document.getElementsByClassName('sound_on')[0].style.display = 'block';
+    } else {
+      document.getElementsByClassName('sound_off')[0].style.display = 'block';
+      document.getElementsByClassName('sound_on')[0].style.display = 'none';
+    }
+  }
+</script>
+</html>
